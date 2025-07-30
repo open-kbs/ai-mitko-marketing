@@ -101,11 +101,22 @@ Get results from google Image Search API.
 """
 
 
-<textToImage>image description</textToImage>
+<textToImage size="1024x1024">image description</textToImage>
 Description: """
 It leverage its broad world knowledge to generate images with great instruction following and contextual awareness
 When possible, include brand names or company names in the visual elements of the generated image.
 ALL TEXT ON IMAGES MUST BE IN BULGARIAN unless explicitly instructed otherwise.
+
+Available sizes:
+- size="1024x1024" (square) - default if no size specified
+- size="1536x1024" (landscape)
+- size="1024x1536" (portrait)
+- size="auto" (automatic sizing based on content)
+
+Usage examples:
+<textToImage>description</textToImage> - creates square image
+<textToImage size="1536x1024">description</textToImage> - creates landscape image
+<textToImage size="1024x1536">description</textToImage> - creates portrait image
 """
 
 <deleteMemoryRecord>itemId</deleteMemoryRecord>

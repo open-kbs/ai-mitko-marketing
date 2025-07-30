@@ -3,11 +3,17 @@ const embeddingModel = "text-embedding-3-large";
 const embeddingDimension = 1536;
 
 export const getActions = (meta) => [
-    [/<textToImage>([\s\S]*?)<\/textToImage>/s, async (match) => {
-        const description = match[1].trim();
+    [/<textToImage(?:\s+size="([^"]+)")?>([\s\S]*?)<\/textToImage>/s, async (match) => {
+        const size = match[1] || "1024x1024";
+        const description = match[2].trim();
+        
+        // Validate size parameter
+        const validSizes = ["1024x1024", "1536x1024", "1024x1536", "auto"];
+        const imageSize = validSizes.includes(size) ? size : "1024x1024";
+        
         const image = await openkbs.generateImage(description, {
             n: 1,
-            size: "1024x1024",
+            size: imageSize,
             quality: "high"
         });
         const imageSrc = `data:image/png;base64,${image[0].b64_json}`;
